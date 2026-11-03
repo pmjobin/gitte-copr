@@ -31,8 +31,8 @@ fi
 
 (
   cd "$project"
-  # This requires internet only here, on the packaging workstation.
-  # The resulting COPR binary build is entirely offline for Rust crates.
+  # Internet access is needed only during SRPM preparation (including COPR
+  # SCM make_srpm); the binary RPM build remains offline for Rust crates.
   cargo vendor --locked --versioned-dirs vendor > cargo-vendor-config.toml
   test -s cargo-vendor-config.toml
   test -d vendor

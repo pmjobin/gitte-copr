@@ -2,12 +2,13 @@
 # Rust dependencies are bundled as sources in Source1 and built offline.
 # GTK4, libadwaita, GLib, libgit2 and OpenSSL remain system libraries.
 #
-# Generate Source1 from THIS release's Cargo.lock using the included
-# make-gitte-vendor.sh script. Do not mix vendor archives across versions.
+# COPR SCM: use the "make srpm" source-build method and .copr/Makefile.
+# It generates Source0 and Source1 from this release's Cargo.lock.
+# Do not mix vendor archives across versions.
 
 Name:           gitte
 Version:        0.11.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Native Git client for GNOME
 
 # Upstream license; review the generated Cargo license summary after the
@@ -110,6 +111,10 @@ glib-compile-schemas --strict --dry-run \
 %{_datadir}/icons/hicolor/symbolic/apps/de.wwwtech.gitte-symbolic.svg
 
 %changelog
+* Tue Nov 03 2026 COPR maintainer - 0.11.1-4
+- Generate upstream and vendored source archives during COPR SCM SRPM build
+- Use the make srpm workflow instead of rpkg for SCM source generation
+
 * Tue Nov 03 2026 COPR maintainer - 0.11.1-3
 - Build all Rust crates from pinned, vendored sources, fully offline
 - Preserve upstream Cargo.lock and Cargo's generated source configuration
