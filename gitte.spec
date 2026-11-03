@@ -8,7 +8,7 @@
 
 Name:           gitte
 Version:        0.11.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Native Git client for GNOME
 
 # Upstream license; review the generated Cargo license summary after the
@@ -76,7 +76,7 @@ export RUSTFLAGS="%{build_rustflags}"
 # Verify that the pinned lockfile and vendored sources resolve offline.
 cargo metadata --locked --offline --format-version 1 > /dev/null
 
-# Meson drives Cargo. Do NOT invoke %cargo_build separately.
+# Meson drives Cargo directly; do not run a second Cargo build.
 %meson -Dflatpak=false
 %meson_build
 
@@ -111,6 +111,10 @@ glib-compile-schemas --strict --dry-run \
 %{_datadir}/icons/hicolor/symbolic/apps/de.wwwtech.gitte-symbolic.svg
 
 %changelog
+* Tue Nov 03 2026 COPR maintainer - 0.11.1-5
+- Avoid expansion of Cargo RPM macro inside a shell comment
+- Fix stray argument passed to Cargo during the build phase
+
 * Tue Nov 03 2026 COPR maintainer - 0.11.1-4
 - Generate upstream and vendored source archives during COPR SCM SRPM build
 - Use the make srpm workflow instead of rpkg for SCM source generation
